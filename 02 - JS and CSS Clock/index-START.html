@@ -15,6 +15,20 @@
       </div>
     </div>
 
+    <div class="digital-clock">
+      <ul>
+        <li>
+          <span class="hours">dd</span>
+        </li>
+        <li>
+          <span class="minutes">dd</span>
+        </li>
+        <li>
+          <span class="seconds">dd</span>
+        </li>
+      </ul>
+    </div>
+
 
   <style>
     html {
@@ -32,6 +46,12 @@
       flex: 1;
       min-height: 100vh;
       align-items: center;
+    }
+
+    .digital-clock ul{
+      list-style: none;
+      padding: 100px;
+      margin: 0;
     }
 
     .clock {
@@ -57,17 +77,57 @@
     }
 
     .hand {
-      width: 50%;
-      height: 6px;
+      height: 150px;
+      width: 12px;
+      border-radius: 20px;
       background: black;
       position: absolute;
-      top: 50%;
+      bottom: 50%;
+      left: calc(50% - 6px);
+      transform-origin: bottom;
+    }
+
+    .hour-hand {
+      background: red;
+      height: 60px;
+    }
+
+    .second-hand {
+      background: yellow;
+      width: 2px;
+      left: calc(50% - 1px);
     }
 
   </style>
 
   <script>
 
+    function setDate() {
+      const now = new Date;
+      const sec = now.getSeconds();
+      const min = now.getMinutes();
+      const hrs = now.getHours();
+
+      document.querySelector('.hours').innerHTML = hrs;
+      document.querySelector('.minutes').innerHTML = min;
+      document.querySelector('.seconds').innerHTML = sec;
+      
+      const secRatio = sec / 60;
+      const minRatio = (min + secRatio) / 60;
+      const hrsRatio = ((hrs % 12) / 12) + minRatio / 12;
+
+      setRotation(document.querySelector('.hour-hand'), hrsRatio);
+      setRotation(document.querySelector('.min-hand'), minRatio);
+      setRotation(document.querySelector('.second-hand'), secRatio);
+    }
+
+    function setRotation(el, rotationRatio) {
+      el.style.transform = `rotate(${rotationRatio * 360}deg)`;
+    }
+
+    setInterval(() => {
+      setDate();
+    }, 1000);
 
   </script>
 </body>
