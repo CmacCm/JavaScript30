@@ -27,9 +27,11 @@
       min-height: 100vh;
       overflow: hidden;
       display: flex;
+      /* flex: 1 0 100%; */
     }
 
     .panel {
+      flex: ;
       background: #6B0F9C;
       box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
       color: white;
@@ -44,10 +46,6 @@
       font-size: 20px;
       background-size: cover;
       background-position: center;
-      flex: 1;
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
     }
 
     .panel1 { background-image:url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500); }
@@ -56,28 +54,11 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
-    /* Flex Items */
+    /* Flex Children */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
-      flex: 1 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .panel > *:first-child { 
-      transform: translateY(-100%); 
-    }
-    .panel.open-active > *:first-child { 
-      transform: translateY(0); 
-    }
-    .panel > *:last-child { 
-      transform: translateY(100%); 
-    }
-    .panel.open-active > *:last-child { 
-      transform: translateY(0); 
     }
 
     .panel p {
@@ -92,15 +73,9 @@
     }
 
     .panel.open {
-      flex: 5;
       font-size: 40px;
     }
-    
-    @media only screen and (max-width: 600px) {
-      .panel p {
-        font-size: 1em;
-      }
-    }
+
   </style>
 
 
@@ -134,36 +109,46 @@
 
   <script>
 
-      /*!
-    * Get all siblings of an element
-    * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
-    * @param  {Node}  elem The element
-    * @return {Array}      The siblings
-    */
-    var getSiblings = function (elem) {
-        return Array.prototype.filter.call(elem.parentNode.children, function (sibling) {
-          return sibling !== elem;
-        });
-      };
-
-    const panels = document.querySelectorAll('.panel');
-
-    function toggleOpen() {
-      this.classList.toggle('open');
-      getSiblings(this).forEach(panel => panel.classList.remove('open'));
-      
-    }
-
-    function toggleActive(e) {
-      if (e.propertyName.includes('flex')) {
-        this.classList.toggle('open-active');  // causes bug when clicking fast on different elements
-      }
-    }
-
-    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
-    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));  // causes bug when clicking fast on different elements
   </script>
 
-</body>
-</html>
 
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script></body>
+</html>
