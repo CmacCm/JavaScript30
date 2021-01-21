@@ -258,6 +258,10 @@
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const data2 = ['car with 3 wheels', 'car with 3 wheels', 'car', 'car', 'car', 'car', 'car', 'car', 'truck', 'truck', 'bike', 'walk', 'car with 3 wheels', 'van', 'bike', 'car', 'walk', 'bike', 'bike', 'bike', 'car with 3 wheels', 'van', 'car with 3 wheels', 'truck' ];
+
+
+
     const newData = data.reduce(function(obj, item) { 
 
       if(!obj[item]) {    //  2. Check if there instance in blank object
@@ -270,6 +274,24 @@
     }, {});           // 1. Create a blank object for keeping new information
 
     // console.log(newData);
+
+
+
+
+    // same thing but with useful function to count instances for any arr
+
+    const instanced = function (arr) { 
+      return arr.reduce((instSum, item) => {
+        if(!instSum[item]) {
+          instSum[item] = 0;
+        }
+        instSum[item]++;
+        return instSum;
+      }, {});
+    }
+
+    console.log(instanced(data2));
+
 
 
 
@@ -293,7 +315,7 @@
       return sumObj;
     }
 
-    console.log(sumInstances(data));
+    // console.log(sumInstances(data));
 
   </script>
 </body>
