@@ -17,6 +17,55 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = [];
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data)) 
+   // without checking download state, so if it was delay with downloading data we would have an empty arr, for example:
+  // .then(data => {
+  //   setTimeout(() => {
+  //     return cities.push(...data)
+  //   }, 3000);
+  // })
+
+  .catch(e => console.log(`err: ${e}`))
+
+
+  function findMatches(wordToMatch, arr) {
+    return arr.filter(arrItem => {
+      const regex = new RegExp(wordToMatch, 'gi');
+      return arrItem.city.match(regex) || arrItem.state.match(regex)
+    })
+  }
+
+  function displayMatches(e) {
+    const value = e.target.value || "enter value";
+    const foundMatches = findMatches(value, cities);
+    const mappedFoundMatches = foundMatches.map(item => {
+      const regexp = new RegExp(value, 'gi');
+      console.log(regexp);
+      const cityName = item.city.replace(regexp, `<span class="hl">${value}</span>`);
+      const stateName = item.state.replace(regexp, `<span class="hl">${value}</span>`);
+      return `
+        <li>
+          <span class="name">${cityName}, ${stateName}</span>
+          <span class="population">${item.population}</span>
+        </li>
+      `}).join('');
+    suggestions.innerHTML = mappedFoundMatches;
+  }
+
+  searchInput.addEventListener('keyup', displayMatches);
+  searchInput.addEventListener('change', displayMatches);
+
+  
+
+
+
+
 </script>
 </body>
 </html>
