@@ -26,15 +26,119 @@
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
-    // Array.prototype.every() // is everyone 19 or older?
+
+    const isAnyAdults = people.some(person => {
+      const currentYear = (new Date()).getFullYear();  // getting current year
+      return person.year > currentYear - 18;  // getting result is any person in arr older than 18, returns true if encounters at least one item in arr, and false if none of them
+    })
+    // console.log(isAnyAdults);
+
+    //======================================================
+
+    // shorter version of the same function
+
+    const isAnyAdultsShort = people.some(person => person.year > (new Date()).getFullYear() - 18);
+
+    // console.log(isAnyAdultsShort);
+
+    //======================================================
+
+    // function for getting true of false if arr containes items Younger than ${age}
+
+    const isAnyPersonYoungerThan = function(arr, age) {    
+      return arr.some(person => person.year > (new Date()).getFullYear() - age);
+    }
+
+    const isAnyYounger30 = isAnyPersonYoungerThan(people, 30);
+    // console.log(isAnyYounger30);
+
+    //======================================================
+    //======================================================
+
+
+
+    // Array.prototype.every() // is everyone 19 or Younger?
+
+    // every checks if every item in arr meets what you are looking for
+    // returns true or false
+
+    const isEveryYounger = people.every(person => {
+      const currentYear = (new Date()).getFullYear();
+      return person.year > currentYear - 19;
+    })
+    // console.log(isEveryYounger);
+
+    const isEveryYoungerShort = people.every(person => person.year > (new Date()).getFullYear() - 19);
+    // console.log(isEveryYoungerShort);
+
+    //======================================================
+
+    // function for checking out if every person meets age you are looking for
+
+    function isEveryYoungerAge(arr, age) {
+      const currentYear = (new Date()).getFullYear();
+      return arr.every(person => person.year > currentYear - age)
+    }
+
+    const isEveryYoungerAgeOf30 = isEveryYoungerAge(people, 30);
+    // console.log(isEveryYoungerAgeOf30);
+
+    //======================================================
+    //======================================================
+
 
     // Array.prototype.find()
-    // Find is like filter, but instead returns just the one you are looking for
+    // Find is like filter, but instead of arr returns just the very first one of arr you are looking for
     // find the comment with the ID of 823423
 
+    const foundByID = comments.find(comment => comment.id === 823423);
+    // console.log(foundByID);
+
+    //======================================================
+    //======================================================
+
+
     // Array.prototype.findIndex()
-    // Find the comment with this ID
+
+
+    // Find the comment index with this ID
+
+    const foundByIndex = comments.findIndex((comment) => comment.id === 823423);
+    // console.log(foundByIndex);
+
+    
     // delete the comment with the ID of 823423
+    
+    const withoutDeletedItem = comments.filter((item, index) => {
+      return index !== foundByIndex;
+    })
+    // console.log(withoutDeletedItem)
+
+    //======================================================
+
+
+    // delete item from original arr:
+
+    // const deletedItem = comments.splice(foundByIndex, 1);
+    // console.log(deletedItem);
+    // console.log(comments)
+
+    //======================================================
+
+    // function for creating new object with deleted item found by any property value:
+
+
+    function removeItemByProp(arr, prop, propValue) {
+      const indexOfItemToRemove = arr.findIndex(itemToFindIndexOf => itemToFindIndexOf[prop] === propValue);
+      return arr.filter((item, index) => index !== indexOfItemToRemove);
+    }
+
+    const newOne = removeItemByProp(comments, 'text', 'Super good');
+    // console.log(newOne);
+
+    const newOne2 = removeItemByProp(comments, 'id', 523423);
+    // console.log(newOne2);
+
 
   </script>
 </body>
