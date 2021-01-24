@@ -21,9 +21,26 @@ const cities = [];
 const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 
+// ===========================================
+
+// to find out the time for some process
+
+// console.time('fetching data');
+//     fetch(endpoint)
+//       .then(data => data.json())
+//       .then(data => {
+//         console.timeEnd('fetching data');
+//         console.log(data);
+//       });
+// ===========================================
+
+console.time('fetching data');  //start point of measuring time for process
 fetch(endpoint)
   .then(blob => blob.json())
-  .then(data => cities.push(...data)) 
+  .then(data => cities.push(...data))
+  .then(() => console.timeEnd('fetching data'))  // end point of measuring time for time process
+
+
    // without checking download state, so if it was delay with downloading data we would have an empty arr, for example:
   // .then(data => {
   //   setTimeout(() => {
@@ -42,11 +59,12 @@ fetch(endpoint)
   }
 
   function displayMatches(e) {
+    console.time('function time');  //start point of measuring time for process
     const value = e.target.value || "enter value";
     const foundMatches = findMatches(value, cities);
     const mappedFoundMatches = foundMatches.map(item => {
       const regexp = new RegExp(value, 'gi');
-      console.log(regexp);
+      // console.log(regexp);
       const cityName = item.city.replace(regexp, `<span class="hl">${value}</span>`);
       const stateName = item.state.replace(regexp, `<span class="hl">${value}</span>`);
       return `
@@ -56,6 +74,7 @@ fetch(endpoint)
         </li>
       `}).join('');
     suggestions.innerHTML = mappedFoundMatches;
+    console.timeEnd('function time') // end point of measuring time for time process
   }
 
   searchInput.addEventListener('keyup', displayMatches);
