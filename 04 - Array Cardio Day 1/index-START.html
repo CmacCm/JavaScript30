@@ -52,7 +52,6 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
-
     // returns a new array. Can be a different length in comparison to original one
 
     const filteredInventorsShort = inventors.filter(inventor => (inventor.year > 1011 && inventor.year < 1300));
@@ -62,6 +61,7 @@
         return true;
       }
     });
+
     // console.table(filteredInventorsShort);
     // console.table(filteredInventors);
 
@@ -71,51 +71,76 @@
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
+    const newarray = inventors.map(x => `${x.first} ${x.last}`)
+    // console.log(newarray);
+
+
+
+
     // returns a new array. CanNOT have a different length in comparison to original one. the length is the same as original one!
-
-
+    
+    
     const fullNamesShort = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
-
+    
     const fullNames = inventors.map(function(inventor) {
       return `${inventor.first} ${inventor.last}`;
     })
-
+    
     // console.table(fullNamesShort);
     // console.table(fullNames);
-
+    
+    function getProperty (arr, param1) {
+      return arr.map(x => x[param1]);
+    }
+    const getName = getProperty(inventors, 'first')
+    // console.log(getName)
 
 
     // SORT
 
-    //!!!! affects the source arr !!!!!!!
+    //!!!! affects the source arr !!!!!!! Doesn't create a copy!!!!
 
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    
+    const byBithdate = inventors.sort( (a, b) => {
+      return a.year < b.year ? 1 : -1;
+    })
+    // console.log(byBithdate);
+    
+    
     // console.table(inventors)
-
+    
     const orderedShort = inventors.sort((a, b) => (a.year > b.year) ? 1 : -1);  //!!!! affects the source arr of inventors !!!!!!!
-
+    
     // console.table(inventors);
-
+    
     const ordered = inventors.sort(function(a, b) {
       if(a.year > b.year) {
         return 1
       }
       return -1
     })
-
+    
     // console.table(orderedShort);
     // console.table(ordered);
+    
+    function sortByPropertyValue (arr, property) {
+      return arr.sort((a, b) => {
+        return a[property] < b[property] ? -1 : 1;
+      })
+    }
 
-
-
+    const sortByLastName = sortByPropertyValue(inventors, "last");
+    // console.table(sortByLastName);
+    
+    
     // REDUCE
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-
 
     const totalYearsShorter = inventors.reduce((sum, inventor) => (sum + (inventor.passed - inventor.year)), 0);
 
@@ -140,7 +165,34 @@
 
     // 5. 1.Sort the inventors by years lived and 2.ADD AGE PROPERTY TO EACH ONE
 
-    
+
+    // const sortedByYears = inventors.sort((a, b) => {
+    //   const aYears = a.passed - a.year;
+    //   const bYears = b.passed - b.year;
+    //   return aYears < bYears ? 1 : -1;
+    // })
+    // console.log(sortedByYears);
+
+
+    ////// function to add property to each item in obj and sort them with that property
+
+    function addNewProperty (arr, property) {
+
+      // we can do addition on property this way
+      // for (item of arr) { item[property] = item.passed - item.year;} 
+
+      // or this way
+      arr.map(item => ({...item}, item[property] = item.passed - item.year));
+
+
+      return arr.sort((a, b) => {      // sorting with added property
+        return a[property] < b[property] ? -1 : 1;
+      })
+    }
+    const test = addNewProperty(inventors, 'years');
+    console.table(test);
+
+    // ---------
     // 1.
     // Sort the inventors by years lived
 
@@ -160,7 +212,7 @@
 
     
     function addProperty(items, propertyName) {
-      return items.map(obj => ({ ...obj, [propertyName]: getYearsOfLiving(obj)}));  // !!!ADD AGE PROPERTY TO EACH ONE (calculating function is used here)
+      return items.map(item => ({ ...item, [propertyName]: getYearsOfLiving(item)}));  // !!!ADD AGE PROPERTY TO EACH ONE (calculating function is used here)
     }
 
 
@@ -171,6 +223,8 @@
     const sortedInv = inventorsYearsField.sort((a, b) => (a.age > b.age) ? 1 : -1)  // sorting arr with added property
 
     // console.table(sortedInv);
+
+    // ---------
 
 
 

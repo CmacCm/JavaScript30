@@ -95,7 +95,62 @@
     </div>
   </div>
 
+<!-- <script>
+
+const checks = document.querySelectorAll('input[type=checkbox]');
+
+let lastChecked;
+
+function selectItems(e) {
+
+  let inBetween = false;
+
+  if(e.shiftKey && this.checked) {
+    checks.forEach(input => {
+      if(input === this || input === lastChecked) {
+        inBetween = !inBetween;
+      }
+
+      if (inBetween) {
+        input.checked = true;
+      }
+    })
+  }
+  lastChecked = this;
+}
+
+checks.forEach(checkbox => checkbox.addEventListener('click', selectItems));
+
+</script> -->
+
 <script>
+  const checks = document.querySelectorAll('input[type=checkbox]');
+  // console.log(checks)
+
+  let lastChecked;
+
+
+  function selectFunc(e) {
+    // console.log(e);
+    // console.log(this);
+    let inBetween = false;
+    debugger
+    if(e.shiftKey && this.checked) {
+      checks.forEach(check => {
+        if(check === lastChecked || check === this) {
+          inBetween = !inBetween;
+        }
+        if(inBetween) {
+          check.checked = true;
+        }
+      })
+    }
+    lastChecked = this;
+  }
+
+  checks.forEach(check => check.addEventListener('click', selectFunc));
+  
 </script>
+
 </body>
 </html>
