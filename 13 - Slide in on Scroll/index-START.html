@@ -43,7 +43,7 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
+    function debounce(func, wait = 20, immediate = true) {  // function for making less queries for update scroll values
       var timeout;
       return function() {
         var context = this, args = arguments;
@@ -57,6 +57,31 @@
         if (callNow) func.apply(context, args);
       };
     }
+
+    const images = document.querySelectorAll('img');
+
+    
+    function handleScroll(e) {
+      
+      images.forEach((img) => {
+        const viewport = window.scrollY + window.innerHeight - img.height/2;
+        const imageBottom = img.offsetTop + img.height/2;
+        const isInViewport = viewport > img.offsetTop;
+        const isScrolled = window.scrollY > imageBottom;
+
+        if (isInViewport && !isScrolled) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+
+        // console.log(isInViewport);
+        // console.log(isScrolled);
+      })
+    }
+
+
+    document.addEventListener('scroll', debounce(handleScroll))
 
   </script>
 
