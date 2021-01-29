@@ -176,20 +176,20 @@
 
     ////// function to add property to each item in obj and sort them with that property
 
-    function addNewProperty (arr, property) {
+    function addNewProperty (arr, property1, property2) {
 
-      // we can do addition on property this way
-      // for (item of arr) { item[property] = item.passed - item.year;} 
+      // we can do property addition this way
+      for (item of arr) { item[property1] = item.passed - item.year;} 
 
       // or this way
-      arr.map(item => ({...item}, item[property] = item.passed - item.year));
+      arr.map(item => ({...item}, item[property2] = `${item.first}  ${item.last}`));
 
 
-      return arr.sort((a, b) => {      // sorting with added property
-        return a[property] < b[property] ? -1 : 1;
+      return arr.sort((a, b) => {      // sorting with added property1
+        return a[property1] < b[property1] ? -1 : 1;
       })
     }
-    const test = addNewProperty(inventors, 'years');
+    const test = addNewProperty(inventors, 'years', 'full name');
     console.table(test);
 
     // ---------

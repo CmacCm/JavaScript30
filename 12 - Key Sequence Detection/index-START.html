@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+
+  const collected = [];
+  const secretWord = 'something';
+
+  function collect(e) {
+    collected.push(e.key);
+    collected.splice( -secretWord.length, collected.length - secretWord.length );
+    (collected.join('') === secretWord) && console.log('happy');
+  }
+
+  document.addEventListener('keyup', collect)
+
+
 </script>
 </body>
 </html>
