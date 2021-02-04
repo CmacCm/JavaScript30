@@ -41,6 +41,8 @@ h1 {
   text-shadow: 3px 4px 0 rgba(0,0,0,0.2);
 }
 
+
+
 nav {
   background: black;
   top: 0;
@@ -48,6 +50,10 @@ nav {
   transition: all 0.5s;
   position: relative;
   z-index: 1;
+}
+
+.sticky-active nav {
+  position: fixed;
 }
 
 nav ul {
@@ -72,6 +78,10 @@ li.logo {
   transition: all .5s;
   font-weight: 600;
   font-size: 30px;
+}
+
+.sticky-active li.logo {
+  max-width: 300px;
 }
 
 li.logo a {

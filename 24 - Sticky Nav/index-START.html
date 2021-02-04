@@ -55,6 +55,33 @@
 
 <script>
 
+const nav = document.querySelector('#main');
+const navOffsetTop = nav.offsetTop;
+console.log({nav})
+
+
+function initStickyNav () {
+  console.log(nav.offsetHeight)
+  console.log(window.scrollY);
+  console.log(nav.offsetTop);
+
+  if (window.scrollY >= navOffsetTop) {
+    document.body.classList.add('sticky-active');
+    document.body.style.paddingTop = `${nav.offsetHeight}px`
+  } else {
+    document.body.classList.remove('sticky-active');
+    document.body.style.paddingTop = 0;
+  }
+}
+
+document.addEventListener('scroll', initStickyNav)
+
+
+
+
+console.log(nav);
+
+
 </script>
 
 </body>
