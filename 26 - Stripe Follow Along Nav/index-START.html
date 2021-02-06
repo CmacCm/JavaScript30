@@ -129,18 +129,96 @@
     justify-content: center;
   }
 
+  .cool > li:hover .dropdown {
+    display: block;
+    opacity: 1;
+    -webkit-animation: fadeInFromNone 0.5s ease-out;
+    -moz-animation: fadeInFromNone 0.5s ease-out;
+    -o-animation: fadeInFromNone 0.5s ease-out;
+    animation: fadeInFromNone 0.5s ease-out;
+  }
+
   .dropdown {
     opacity: 0;
     position: absolute;
     overflow: hidden;
     padding: 20px;
     top: -20px;
+    display: none;
     border-radius: 2px;
-    transition: all 0.5s;
+    transition: opacity .5s ease-in-out;
     transform: translateY(100px);
     will-change: opacity;
-    display: none;
   }
+
+  
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
 
   .trigger-enter .dropdown {
     display: block;
@@ -220,6 +298,32 @@
 </style>
 
 <script>
+
+
+  const links = document.querySelectorAll('.cool>li');
+  const background = document.querySelector('.dropdownBackground');
+  const nav  = document.querySelector('.top');
+
+  function showBG(e) {
+    const navCoords = nav.getBoundingClientRect();
+    const dropdown = this.querySelector('.dropdown');
+    const dropdownCoords = dropdown.getBoundingClientRect()
+    const coords = {
+      width: dropdownCoords.width,
+      height: dropdownCoords.height,
+      top: dropdownCoords.top - navCoords.top,
+      left: dropdownCoords.left - navCoords.left,
+    }
+    background.classList.add('open');
+    background.style.width = `${coords.width}px`;
+    background.style.height = `${coords.height}px`;
+    background.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+  }
+
+  links.forEach((link) => link.addEventListener('mouseover', showBG))
+
+
+
 </script>
 
 </body>
