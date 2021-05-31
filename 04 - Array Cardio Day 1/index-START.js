@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Array Cardio 💪</title>
-</head>
-<body>
-  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
-  <script>
+
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
 
@@ -49,15 +41,15 @@
 
 
     // FILTER
-    
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
     // returns a new array. Can be a different length in comparison to original one
 
     const filteredInventorsShort = inventors.filter(inventor => (inventor.year > 1011 && inventor.year < 1300));
 
-    const filteredInventors = inventors.filter(function(inventor) {
-      if(inventor.year > 1011 && inventor.year < 1300) {
+    const filteredInventors = inventors.filter(function (inventor) {
+      if (inventor.year > 1011 && inventor.year < 1300) {
         return true;
       }
     });
@@ -78,22 +70,32 @@
 
 
     // returns a new array. CanNOT have a different length in comparison to original one. the length is the same as original one!
-    
-    
+
+
     const fullNamesShort = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
-    
-    const fullNames = inventors.map(function(inventor) {
+
+    const fullNames = inventors.map(function (inventor) {
       return `${inventor.first} ${inventor.last}`;
     })
-    
+
     // console.table(fullNamesShort);
     // console.table(fullNames);
-    
-    function getProperty (arr, param1) {
+
+    function getProperty(arr, param1) {
       return arr.map(x => x[param1]);
     }
     const getName = getProperty(inventors, 'first')
     // console.log(getName)
+
+
+    // get some of key-value pairs in obj
+
+    const someOfFields = inventors.map(inventor => ({
+      first: inventor.first,
+      year: inventor.year
+    }))
+
+    console.log(someOfFields);
 
 
     // SORT
@@ -104,30 +106,30 @@
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
-    
-    const byBithdate = inventors.sort( (a, b) => {
+
+    const byBithdate = inventors.sort((a, b) => {
       return a.year < b.year ? 1 : -1;
     })
     // console.log(byBithdate);
-    
-    
+
+
     // console.table(inventors)
-    
+
     const orderedShort = inventors.sort((a, b) => (a.year > b.year) ? 1 : -1);  //!!!! affects the source arr of inventors !!!!!!!
-    
+
     // console.table(inventors);
-    
-    const ordered = inventors.sort(function(a, b) {
-      if(a.year > b.year) {
+
+    const ordered = inventors.sort(function (a, b) {
+      if (a.year > b.year) {
         return 1
       }
       return -1
     })
-    
+
     // console.table(orderedShort);
     // console.table(ordered);
-    
-    function sortByPropertyValue (arr, property) {
+
+    function sortByPropertyValue(arr, property) {
       return arr.sort((a, b) => {
         return a[property] < b[property] ? -1 : 1;
       })
@@ -135,8 +137,8 @@
 
     const sortByLastName = sortByPropertyValue(inventors, "last");
     // console.table(sortByLastName);
-    
-    
+
+
     // REDUCE
 
     // Array.prototype.reduce()
@@ -148,7 +150,7 @@
       return sum + (inventor.passed - inventor.year);
     }, 0);
 
-    const totalYears = function(inventors) {
+    const totalYears = function (inventors) {
       let sum = 0;
       for (let i = 0; i < inventors.length; i++) {
         sum += inventors[i].passed - inventors[i].year;
@@ -176,13 +178,13 @@
 
     ////// function to add property to each item in obj and sort them with that property
 
-    function addNewProperty (arr, property1, property2) {
+    function addNewProperty(arr, property1, property2) {
 
       // we can do property addition this way
-      for (item of arr) { item[property1] = item.passed - item.year;} 
+      for (item of arr) { item[property1] = item.passed - item.year; }
 
       // or this way
-      arr.map(item => ({...item}, item[property2] = `${item.first}  ${item.last}`));
+      arr.map(item => ({ ...item }, item[property2] = `${item.first}  ${item.last}`));
 
 
       return arr.sort((a, b) => {      // sorting with added property1
@@ -200,26 +202,26 @@
       return person.passed - person.year;
     }
 
-    
-    const yearsLived = inventors.sort(function(a, b) {   // Sorting arr using calculate function
+
+    const yearsLived = inventors.sort(function (a, b) {   // Sorting arr using calculate function
       return (getYearsOfLiving(a) > getYearsOfLiving(b)) ? 1 : -1;
-    }) 
+    })
 
     // console.table(yearsLived);
 
     // 2.
     // Adding property to each item in arr:
 
-    
+
     function addProperty(items, propertyName) {
-      return items.map(item => ({ ...item, [propertyName]: getYearsOfLiving(item)}));  // !!!ADD AGE PROPERTY TO EACH ONE (calculating function is used here)
+      return items.map(item => ({ ...item, [propertyName]: getYearsOfLiving(item) }));  // !!!ADD AGE PROPERTY TO EACH ONE (calculating function is used here)
     }
 
 
     const inventorsYearsField = addProperty(inventors, 'age');  // adding property to each one
 
     // console.table(inventorsYearsField);
-    
+
     const sortedInv = inventorsYearsField.sort((a, b) => (a.age > b.age) ? 1 : -1)  // sorting arr with added property
 
     // console.table(sortedInv);
@@ -236,10 +238,10 @@
       return (older > younger) ? 1 : -1;
     })
 
-    const oldest = inventors.sort(function(a, b) {
+    const oldest = inventors.sort(function (a, b) {
       const older = a.passed - a.year;
       const younger = b.passed - b.year;
-      if(older > younger) {
+      if (older > younger) {
         return -1
       }
       return 1;
@@ -267,14 +269,14 @@
 
     const sortedPeople = people.sort((a, b) => {
 
-      function makePartOfString (item) {
+      function makePartOfString(item) {
         return item.substr((item.indexOf(`,`) + 2), item.length)  // get the lastname of a person
       }
 
       const partOfString1 = makePartOfString(a);  // get the lastname of a
       const partOfString2 = makePartOfString(b);  // get the lastname of b
- 
-      
+
+
       return (partOfString1 > partOfString2) ? 1 : -1; // compare a.lastname and b.lastname and return boolean
     })
 
@@ -293,34 +295,34 @@
       // const bChanged = b.split(', ');
       // return aChanged[1] > bChanged[1] ? 1 : -1; // comparing second items [1]  in each arr and returning boolean
 
-      
+
       // approach TWO:
 
       const [aFirst, aLast] = a.split(', ');  // making arr of two variables aFirst, aLast and then splitting every item of two words in one arr like ["Bevan", "Aneurin"] and adding values from arr to variables aFirst and aLast
       // console.log({aFirst}, {aLast});
-      const [bFirst, bLast] = b.split(', ');  
+      const [bFirst, bLast] = b.split(', ');
       return aLast > bLast ? 1 : -1; // comparing second items in each arr and returning boolean
 
     });
     // console.table(alpha);
-    
-   
 
-    // 8. Reduce Exercise
 
-    
+
+    // 8. Reduce Exercise (count items)
+
+
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
 
-    const data2 = ['car with 3 wheels', 'car with 3 wheels', 'car', 'car', 'car', 'car', 'car', 'car', 'truck', 'truck', 'bike', 'walk', 'car with 3 wheels', 'van', 'bike', 'car', 'walk', 'bike', 'bike', 'bike', 'car with 3 wheels', 'van', 'car with 3 wheels', 'truck' ];
+    const data2 = ['car with 3 wheels', 'car with 3 wheels', 'car', 'car', 'car', 'car', 'car', 'car', 'truck', 'truck', 'bike', 'walk', 'car with 3 wheels', 'van', 'bike', 'car', 'walk', 'bike', 'bike', 'bike', 'car with 3 wheels', 'van', 'car with 3 wheels', 'truck'];
 
 
 
-    const newData = data.reduce(function(obj, item) { 
+    const newData = data.reduce(function (obj, item) {
 
-      if(!obj[item]) {    //  2. Check if there instance in blank object
+      if (!obj[item]) {    //  2. Check if there instance in blank object
         obj[item] = 0;     // if not, create a property with new instance and assign 0 to the value;
-      } 
+      }
 
       obj[item]++;         // 3. if yes, increment value of that property in 1;
 
@@ -334,9 +336,9 @@
 
     // same thing but with useful function to count instances for any arr
 
-    const instanced = function (arr) { 
+    const instanced = function (arr) {
       return arr.reduce((instSum, item) => {
-        if(!instSum[item]) {
+        if (!instSum[item]) {
           instSum[item] = 0;
         }
         instSum[item]++;
@@ -345,6 +347,18 @@
     }
 
     console.log(instanced(data2));
+
+
+    // SHORT WAY TO COUNT ITEMS !!!!!!
+
+    const instanced2 = (arr) => {
+      return arr.reduce((acc, item) => {
+        acc[item] = (acc[item] || 0) + 1;  
+        return acc
+      }, {})
+    }
+
+    console.log(instanced2(data2));
 
 
 
@@ -358,7 +372,7 @@
 
       arr.forEach(element => {
 
-        if(!sumObj[element]) {
+        if (!sumObj[element]) {
           sumObj[element] = 0;
         }
 
@@ -370,7 +384,3 @@
     }
 
     // console.log(sumInstances(data));
-
-  </script>
-</body>
-</html>
